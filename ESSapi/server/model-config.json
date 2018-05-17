@@ -38,5 +38,9 @@
   "Quote": {
     "dataSource": "mongoQuotes",
     "public": true
+  },
+  "Customer": {
+    "dataSource": "db",
+    "public": true
   }
 }
