@@ -1,0 +1,16 @@
+{
+  "name": "ms",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "nodemon getQuotes & nodemon quotes"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.1.0-beta4",
+    "request": "^2.86.0",
+    "request-promise-native": "^1.0.5",
+    "express": "^4.16.3"
+  }
+}

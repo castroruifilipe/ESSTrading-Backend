@@ -4,14 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "iex-api": "0.0.3",
-    "mongodb": "^3.1.0-beta4",
-    "request": "^2.86.0",
-    "request-promise-native": "^1.0.5"
+    "iex-api": "0.0.3"
   }
 }

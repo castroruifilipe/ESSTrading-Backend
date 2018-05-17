@@ -10,7 +10,6 @@ admin.initializeApp({
     databaseURL: 'https://ess-trading.firebaseio.com'
 });
 
-
 var config = {
     apiKey: "AIzaSyDwGpH8LJmxd0jY7OCNM2xKz9_-BKvfx3M",
     authDomain: "ess-trading.firebaseapp.com",
@@ -38,19 +37,12 @@ module.exports = function (Customer) {
             password: credentials.password,
         })
             .then(function (userRecord) {
-                // See the UserRecord reference doc for the contents of userRecord.
                 console.log("Successfully created new user:", userRecord.uid);
-                // admin.auth().createCustomToken(userRecord.uid)
-                //     .then(token => auth.signInWithCustomToken(token)
-                //         .then(user => auth.onAuthStateChanged(function(user) {
-                //             user.sendEmailVerification();
-                //           }))
-                //     )
                 callback(null);
             })
             .catch(function (error) {
                 console.log("Error creating new user:", error);
-                callback(error);
+                callback(new Error("Não foi possível registar o utilizador"));
             });
     }
 
@@ -58,7 +50,6 @@ module.exports = function (Customer) {
         if (!credentials.email || !credentials.password) {
             return callback(new Error('Credenciais inválidas'));
         }
-
         auth.signInWithEmailAndPassword(credentials.email, credentials.password)
             .then(function (userRecord) {
                 // See the UserRecord reference doc for the contents of userRecord.
