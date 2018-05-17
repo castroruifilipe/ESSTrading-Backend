@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
-    "iex-api": "0.0.3",
     "mongodb": "^3.1.0-beta4",
     "request": "^2.86.0",
     "request-promise-native": "^1.0.5"
