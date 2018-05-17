@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongoQuotes": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "quotes",
+    "password": "12345",
+    "name": "mongoQuotes",
+    "user": "ess",
+    "connector": "mongodb"
+  }
+}
