@@ -40,7 +40,7 @@
     "public": true
   },
   "Customer": {
-    "dataSource": "db",
+    "dataSource": "postgresCustomers",
     "public": true
   }
 }

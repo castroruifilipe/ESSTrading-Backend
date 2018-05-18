@@ -24,10 +24,14 @@ if (!firebase.apps.length) {
 }
 const auth = firebase.auth();
 
+
+
+
 module.exports = function (Customer) {
 
+
     Customer.signup = function (credentials, callback) {
-        if (!credentials.email || !credentials.password) {
+        if (!credentials.email || !credentials.password || !credentials.username) {
             return callback(new Error('Credenciais inválidas'));
         }
 
@@ -36,14 +40,9 @@ module.exports = function (Customer) {
             emailVerified: true,
             password: credentials.password,
         })
-            .then(function (userRecord) {
-                console.log("Successfully created new user:", userRecord.uid);
-                callback(null);
-            })
-            .catch(function (error) {
-                console.log("Error creating new user:", error);
-                callback(new Error("Não foi possível registar o utilizador"));
-            });
+            .then(userRecord => Customer.create({ email: credentials.email, username: credentials.username }))
+            .then(customer => callback(null))
+            .catch(error => callback("Não foi possível registar o utilizador."));
     }
 
     Customer.signin = function (credentials, callback) {
