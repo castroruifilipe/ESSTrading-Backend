@@ -4,7 +4,7 @@ const request = require('request-promise-native');
 const app = express();
 app.use(express.json());
 
-const monguUrl = 'mongodb://localhost:27017';
+const monguUrl = 'mongodb://mongo:27017';
 const dbName = 'quotes';
 const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(monguUrl);

@@ -4,9 +4,6 @@ services:
     mongo:
         image: mongo:latest
         container_name: mongo
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=ess
-            - MONGO_INITDB_ROOT_PASSWORD=12345
         ports:
             - '27017:27017'
         volumes:
@@ -44,3 +41,42 @@ services:
         links:
             - postgres
             - mongo
+    
+    gateway:
+        container_name: gateway
+        build: ./gateway/
+        volumes:
+            - './gateway:/usr/src/gateway'
+        ports:
+            - '9000:9000'
+        links:
+            - api
+
+    get_quotes:
+        container_name: get_quotes
+        build: ./services/getQuotes/
+        volumes:
+            - './services/getQuotes:/usr/src/services/getQuotes'
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=ess
+            - MONGO_INITDB_ROOT_PASSWORD=12345
+        depends_on:
+            - mongo
+        links:
+            - mongo
+
+    quotes:
+        container_name: quotes
+        build: ./services/quotes/
+        volumes:
+            - './services/quotes:/usr/src/services/quotes'
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=ess
+            - MONGO_INITDB_ROOT_PASSWORD=12345
+        ports:
+            - '5000:5000'
+        depends_on:
+            - mongo
+        links:
+            - mongo
+        
