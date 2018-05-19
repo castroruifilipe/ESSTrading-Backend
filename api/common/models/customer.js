@@ -10,6 +10,7 @@ admin.initializeApp({
     databaseURL: 'https://ess-trading.firebaseio.com'
 });
 
+
 var config = {
     apiKey: "AIzaSyDwGpH8LJmxd0jY7OCNM2xKz9_-BKvfx3M",
     authDomain: "ess-trading.firebaseapp.com",
@@ -28,7 +29,6 @@ const auth = firebase.auth();
 
 
 module.exports = function (Customer) {
-
 
     Customer.signup = function (credentials, callback) {
         if (!credentials.email || !credentials.password || !credentials.username) {

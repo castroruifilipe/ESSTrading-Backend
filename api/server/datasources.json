@@ -4,7 +4,7 @@
     "connector": "memory"
   },
   "mongoQuotes": {
-    "host": "localhost",
+    "host": "mongo",
     "port": 27017,
     "url": "",
     "database": "quotes",
@@ -14,13 +14,13 @@
     "connector": "mongodb"
   },
   "postgresCustomers": {
-    "host": "localhost",
+    "host": "postgres",
     "port": 5432,
     "url": "",
     "database": "customers",
-    "password": "",
+    "password": "12345",
     "name": "postgresCustomers",
-    "user": "diogomachado",
+    "user": "ess",
     "connector": "postgresql"
   }
 }

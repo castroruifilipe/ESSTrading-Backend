@@ -1,5 +1,5 @@
 {
-  "name": "ESSapi",
+  "name": "api",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
@@ -7,7 +7,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "nodemon .",
+    "start": "nodemon -L .",
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
@@ -34,5 +34,5 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "ESSapi"
+  "description": "api"
 }

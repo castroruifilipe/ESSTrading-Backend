@@ -1,0 +1,46 @@
+version: '2.1'
+
+services:
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=ess
+            - MONGO_INITDB_ROOT_PASSWORD=12345
+        ports:
+            - '27017:27017'
+        volumes:
+            - ./db/mongo/data:/data/db
+    
+    mongo-c:
+        container_name: mongo-c
+        build: ./db/mongo
+        links:
+            - mongo:mongo
+        depends_on:
+            - mongo
+            
+    postgres:
+        container_name: postgres
+        build: ./db/postgres
+        ports:
+            - '5433:5432'
+        environment:
+            - POSTGRES_USER=ess
+            - POSTGRES_PASSWORD=12345
+        healthcheck:
+            test: exit 0
+        
+    api:
+        container_name: api
+        build: ./api/
+        volumes:
+            - './api:/usr/src/api'
+        ports:
+            - '3000:3000'
+        depends_on:
+            - postgres
+            - mongo
+        links:
+            - postgres
+            - mongo

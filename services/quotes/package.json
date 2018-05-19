@@ -1,9 +1,11 @@
 {
-  "name": "ms",
+  "name": "quotes",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon getQuotes & nodemon quotes"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ."
   },
   "author": "",
   "license": "ISC",
