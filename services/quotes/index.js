@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoClient = require('mongodb').MongoClient;
 const request = require('request-promise-native');
+
 const app = express();
 app.use(express.json());
 
-const monguUrl = 'mongodb://mongo:27017';
+const mongoUrl = 'mongodb://mongo:27017';
 const dbName = 'quotes';
 const collectionName = 'Quote';
-const connectionPromise = mongoClient.connect(monguUrl);
+const connectionPromise = mongoClient.connect(mongoUrl);
 const quoteCollection = connectionPromise
     .then(client => client.db(dbName))
     .then(db => db.collection(collectionName));

@@ -46,6 +46,7 @@ module.exports = function (Customer) {
     }
 
     Customer.signin = function (credentials, callback) {
+        console.log("AQUI")
         if (!credentials.email || !credentials.password) {
             return callback(new Error('Credenciais inválidas'));
         }

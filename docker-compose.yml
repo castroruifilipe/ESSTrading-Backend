@@ -34,7 +34,7 @@ services:
         volumes:
             - './api:/usr/src/api'
         ports:
-            - '3000:3000'
+            - '4000:3000'
         depends_on:
             - postgres
             - mongo
@@ -51,6 +51,8 @@ services:
             - '9000:9000'
         links:
             - api
+            - quotes
+            - get_quotes
 
     get_quotes:
         container_name: get_quotes
@@ -60,6 +62,8 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=ess
             - MONGO_INITDB_ROOT_PASSWORD=12345
+        ports:
+            - '8000:8000'
         depends_on:
             - mongo
         links:
