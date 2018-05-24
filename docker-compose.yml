@@ -52,22 +52,6 @@ services:
         links:
             - api
             - quotes
-            - get_quotes
-
-    get_quotes:
-        container_name: get_quotes
-        build: ./services/getQuotes/
-        volumes:
-            - './services/getQuotes:/usr/src/services/getQuotes'
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=ess
-            - MONGO_INITDB_ROOT_PASSWORD=12345
-        ports:
-            - '8000:8000'
-        depends_on:
-            - mongo
-        links:
-            - mongo
 
     quotes:
         container_name: quotes
@@ -83,4 +67,3 @@ services:
             - mongo
         links:
             - mongo
-        

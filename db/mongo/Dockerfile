@@ -2,4 +2,4 @@ FROM mongo:latest
 
 ADD create.js /tmp/
 
-CMD mongo /tmp/create.js
+CMD mongo --host mongo /tmp/create.js

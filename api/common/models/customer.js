@@ -30,49 +30,46 @@ const auth = firebase.auth();
 
 module.exports = function (Customer) {
 
-    Customer.signup = function (credentials, callback) {
-        if (!credentials.email || !credentials.password || !credentials.username) {
-            return callback(new Error('Credenciais inválidas'));
+    Customer.signup = function (data, callback) {
+        if (!data.email || !data.password || !data.username) {
+            return callback(new Error('Dados inválidos'));
         }
-
-        admin.auth().createUser({
-            email: credentials.email,
-            emailVerified: true,
-            password: credentials.password,
-        })
-            .then(userRecord => Customer.create({ email: credentials.email, username: credentials.username }))
+        if (typeof data.password == 'string') {
+            if (data.password.length < 6) {
+                return callback(new Error('A password deverá ter no minímo 6 caracteres'));
+            }
+        }
+        admin.auth().createUser({ email: data.email, password: data.password, emailVerified: true })
+            .then(userRecord => Customer.create({
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email,
+                username: data.username,
+                phone: data.contacto,
+                saldo: 10000,
+            }))
             .then(customer => callback(null))
-            .catch(error => callback("Não foi possível registar o utilizador."));
-    }
-
-    Customer.signin = function (credentials, callback) {
-        console.log("AQUI")
-        if (!credentials.email || !credentials.password) {
-            return callback(new Error('Credenciais inválidas'));
-        }
-        auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-            .then(function (userRecord) {
-                // See the UserRecord reference doc for the contents of userRecord.
-                console.log("Successfully signin. User:", userRecord.user.uid);
-                return admin.auth().createCustomToken(userRecord.user.uid, {
-                    'email': credentials.email
-                });
-            })
-            .then(token => callback(null, token))
-            .catch(function (error) {
-                console.log("Error signing in", error);
-                callback(error)
-            });
+            .catch(error => callback(new Error('Não foi possível registar o utilizador')));
     }
 
     Customer.remoteMethod(
         'signup',
         {
-            accepts: { arg: 'credentials', type: 'object', required: true, http: { source: 'body' } },
-            // returns: { arg: 'accessToken', type: 'object', root: true },
+            accepts: { arg: 'data', type: 'object', required: true, http: { source: 'body' } },
             http: { verb: 'post' },
         }
     );
+
+
+    Customer.signin = function (credentials, callback) {
+        if (!credentials.email || !credentials.password) {
+            return callback(new Error('Credenciais inválidas'));
+        }
+        auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+            .then(userRecord => admin.auth().createCustomToken(userRecord.user.uid, { email: credentials.email }))
+            .then(token => callback(null, token))
+            .catch(error => callback(new Error('Credenciais inválidas')));
+    }
 
     Customer.remoteMethod(
         'signin',
