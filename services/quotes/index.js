@@ -27,16 +27,6 @@ app.get('/quotes-ms/quotes', (req, res) => {
 });
 
 
-
-socketIO.on('connection', function (socket) {
-    console.log("AQUI");
-    socket.emit('news', { hello: 'world' });
-    socket.on('message', function (data) {
-        console.log(data);
-    });
-});
-
-
 let symbols = ['AMZN', 'AAPL', 'FB', 'GOOG', 'TSLA', 'EA', 'HPQ', 'IBM', 'MSFT', 'MSI', 'NOK', 'NVDA', 'ORCL', 'SNAP', 'TRIP'];
 
 function getQuotes() {

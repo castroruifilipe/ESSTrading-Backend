@@ -16,11 +16,11 @@
     "last_name": {
       "type": "string"
     },
-    "phone": {
+    "contacto": {
       "type": "string"
     },
-    "birthdate": {
-      "type": "date"
+    "data_nascimento": {
+      "type": "string"
     },
     "sexo": {
       "type": "string"
@@ -30,6 +30,15 @@
       "required": true
     },
     "nif": {
+      "type": "string"
+    },
+    "saldo": {
+      "type": "number"
+    },
+    "image": {
+      "type": "string"
+    },
+    "imageCroped": {
       "type": "string"
     }
   },
