@@ -28,4 +28,4 @@ boot(app, __dirname, function(err) {
     app.start();
 });
 
-app.dataSources.postgresCustomers.automigrate();
+app.dataSources.postgres.automigrate();

@@ -39,10 +39,8 @@ services:
             - '4000:3000'
         depends_on:
             - postgres
-            - mongo
         links:
             - postgres
-            - mongo
     
     gateway:
         container_name: gateway

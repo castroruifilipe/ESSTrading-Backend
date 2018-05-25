@@ -35,12 +35,8 @@
     "dataSource": "db",
     "public": false
   },
-  "Quote": {
-    "dataSource": "mongoQuotes",
-    "public": true
-  },
   "Customer": {
-    "dataSource": "postgresCustomers",
+    "dataSource": "postgres",
     "public": true
   }
 }

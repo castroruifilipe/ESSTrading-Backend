@@ -12,6 +12,7 @@ admin.initializeApp({
 });
 
 
+
 var config = {
     apiKey: "AIzaSyDwGpH8LJmxd0jY7OCNM2xKz9_-BKvfx3M",
     authDomain: "ess-trading.firebaseapp.com",
@@ -96,13 +97,10 @@ module.exports = function (Customer) {
             .catch(error => callback(new Error("Sem autorização")));
     }
 
-
     Customer.remoteMethod(
         'getProfile',
         {
-            accepts: [
-                { arg: 'req', type: 'object', http: { source: 'req' } },
-            ],
+            accepts: { arg: 'req', type: 'object', http: { source: 'req' } },
             returns: { arg: 'userProfile', type: 'object', root: true },
             http: { verb: 'get' },
         }
