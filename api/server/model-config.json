@@ -38,5 +38,13 @@
   "Customer": {
     "dataSource": "postgres",
     "public": true
+  },
+  "CFD": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "Movimento": {
+    "dataSource": "postgres",
+    "public": true
   }
 }

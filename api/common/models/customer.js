@@ -25,7 +25,7 @@ module.exports = function (Customer) {
         return jwt.sign({ customerId: customer.id }, 'SECRET');
     }
 
-    function decodeToken(authHeader) {
+    Customer.decodeToken = function (authHeader) {
         if (!authHeader) {
             return false;
         }
@@ -99,7 +99,7 @@ module.exports = function (Customer) {
 
 
     Customer.changePassword = function (req, data, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
@@ -137,7 +137,7 @@ module.exports = function (Customer) {
 
 
     Customer.getProfile = function (req, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
@@ -158,7 +158,7 @@ module.exports = function (Customer) {
 
 
     Customer.updateProfile = function (req, data, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
@@ -183,7 +183,7 @@ module.exports = function (Customer) {
 
 
     Customer.depositarPlafond = function (req, data, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
@@ -217,7 +217,7 @@ module.exports = function (Customer) {
 
 
     Customer.levantarPlafond = function (req, data, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
@@ -254,7 +254,7 @@ module.exports = function (Customer) {
 
 
     Customer.deleteProfile = function (req, callback) {
-        const payload = decodeToken(req.headers.authorization);
+        const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }

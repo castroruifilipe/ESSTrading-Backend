@@ -1,0 +1,61 @@
+{
+  "name": "Movimento",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "dataAbertura": {
+      "type": "string",
+      "required": true
+    },
+    "dataFecho": {
+      "type": "string",
+      "required": true
+    },
+    "designacao": {
+      "type": "string",
+      "required": true
+    },
+    "lucroPerda": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "percent_lucroPerda": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "precoFecho": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "valorAbertura": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "valorInvestido": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

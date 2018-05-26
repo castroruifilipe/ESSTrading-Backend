@@ -16,6 +16,18 @@ const quoteCollection = connectionPromise
     .then(db => db.collection(collectionName));
 
 
+const adapter = (iexQuote) => {
+    return ({
+        symbol: iexQuote.symbol,
+        companyName: iexQuote.companyName,
+        bidPrice: iexQuote.iexBidPrice,
+        askPrice: iexQuote.iexAskPrice,
+        changePercent: iexQuote.changePercent,
+        change: iexQuote.change,
+    })
+}
+
+
 app.get('/quotes-ms/quotes', (req, res) => {
     quoteCollection
         .then(col => col.find({}).toArray())
@@ -27,6 +39,32 @@ app.get('/quotes-ms/quotes', (req, res) => {
 });
 
 
+app.get('/quotes-ms/quote/:symbol', (req, res) => {
+    let symbol = req.params.symbol;
+    request({
+        url: `https://api.iextrading.com/1.0/stock/${symbol}/quote`,
+        json: true,
+    })
+        .then(quote => {
+            if (quote.iexBidPrice && quote.iexAskPrice) {
+                res.send(adapter(quote));
+            } else {
+                quoteCollection
+                    .then(col => col.findOne({ symbol }))
+                    .then(quote => res.send(quote))
+                    .catch(error => {
+                        res.status(500);
+                        res.send(error);
+                    });
+            }
+        })
+        .catch(error => {
+            res.status(500);
+            res.send(error);
+        });
+})
+
+
 let symbols = ['AMZN', 'AAPL', 'FB', 'GOOG', 'TSLA', 'EA', 'HPQ', 'IBM', 'MSFT', 'MSI', 'NOK', 'NVDA', 'ORCL', 'SNAP', 'TRIP'];
 
 function getQuotes() {
@@ -34,16 +72,7 @@ function getQuotes() {
         url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${symbols}&types=quote`,
         json: true,
     })
-        .then(response =>
-            Object.values(response).map(r => ({
-                symbol: r.quote.symbol,
-                companyName: r.quote.companyName,
-                bidPrice: r.quote.iexBidPrice,
-                askPrice: r.quote.iexAskPrice,
-                changePercent: r.quote.changePercent,
-                change: r.quote.change,
-            }))
-        )
+        .then(response => Object.values(response).map(adapter))
         .then(quotes => Promise.all([quotes, quoteCollection]))
         .then(([quotes, quoteCollection]) => (
             Promise.all(quotes.map(quote => {

@@ -41,6 +41,7 @@ services:
             - postgres
         links:
             - postgres
+            - quotes
     
     gateway:
         container_name: gateway

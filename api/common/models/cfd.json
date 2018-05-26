@@ -1,0 +1,51 @@
+{
+  "name": "CFD",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "ativo": {
+      "type": "string",
+      "required": true
+    },
+    "dataAbertura": {
+      "type": "string",
+      "required": true
+    },
+    "montante": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "tipo": {
+      "type": "number",
+      "required": true
+    },
+    "unidades": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "valorAbertura": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "customer": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

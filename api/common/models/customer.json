@@ -37,7 +37,10 @@
       "type": "string"
     },
     "saldo": {
-      "type": "number"
+      "type": "number",
+      "postgresql": {
+        "dataType": "double precision"
+      }
     },
     "image": {
       "type": "string"
