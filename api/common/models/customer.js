@@ -98,6 +98,44 @@ module.exports = function (Customer) {
     );
 
 
+    Customer.changePassword = function (req, data, callback) {
+        const payload = decodeToken(req.headers.authorization);
+        if (!payload) {
+            return callback(new Error("Sem autorização"));
+        }
+        if (!data.oldPassword || !data.newPassword) {
+            return callback(new Error("Credenciais inválidas1"));
+        }
+        Customer
+            .findById(payload.customerId)
+            .then(customer => {
+                comparePassword(data.oldPassword, customer.password)
+                    .then(isValid => {
+                        if (!isValid) {
+                            throw new Error('Credenciais inválidas');
+                        } else {
+                            customer
+                                .updateAttribute('password', hashPassword(data.newPassword))
+                                .then(() => callback(null))
+                        }
+                    })
+                    .catch(error => callback(error));
+            })
+            .catch(error => callback(error));
+    }
+
+    Customer.remoteMethod(
+        'changePassword',
+        {
+            accepts: [
+                { arg: 'req', type: 'object', http: { source: 'req' } },
+                { arg: 'data', type: 'any', required: true, http: { source: 'body' } },
+            ],
+            http: { verb: 'put' },
+        }
+    );
+
+
     Customer.getProfile = function (req, callback) {
         const payload = decodeToken(req.headers.authorization);
         if (!payload) {
@@ -140,6 +178,99 @@ module.exports = function (Customer) {
             ],
             returns: { arg: 'userProfile', type: 'object', root: true },
             http: { verb: 'put' },
+        }
+    );
+
+
+    Customer.depositarPlafond = function (req, data, callback) {
+        const payload = decodeToken(req.headers.authorization);
+        if (!payload) {
+            return callback(new Error("Sem autorização"));
+        }
+        if (!data.valor) {
+            return callback(new Error("Dados inválidos"));
+        }
+        if (data.valor <= 0) {
+            return callback(new Error("Dados inválidos"));
+        }
+        Customer
+            .findById(payload.customerId)
+            .then(customer => {
+                customer
+                    .updateAttribute('saldo', customer.saldo + data.valor)
+                    .then(() => callback(null, customer))
+            })
+            .catch(error => callback(error));
+    }
+
+    Customer.remoteMethod(
+        'depositarPlafond',
+        {
+            accepts: [
+                { arg: 'req', type: 'object', http: { source: 'req' } },
+                { arg: 'data', type: 'any', required: true, http: { source: 'body' } },
+            ],
+            returns: { arg: 'userProfile', type: 'object', root: true },
+            http: { verb: 'put' },
+        }
+    );
+
+
+    Customer.levantarPlafond = function (req, data, callback) {
+        const payload = decodeToken(req.headers.authorization);
+        if (!payload) {
+            return callback(new Error("Sem autorização"));
+        }
+        if (!data.valor) {
+            return callback(new Error("Dados inválidos"));
+        }
+        if (data.valor <= 0) {
+            return callback(new Error("Dados inválidos"));
+        }
+        Customer
+            .findById(payload.customerId)
+            .then(customer => {
+                if (customer.saldo < data.valor) {
+                    throw new Errow("Não foi possível levantar o valor");
+                }
+                customer
+                    .updateAttribute('saldo', customer.saldo - data.valor)
+                    .then(() => callback(null, customer))
+            })
+            .catch(error => callback(error));
+    }
+
+    Customer.remoteMethod(
+        'levantarPlafond',
+        {
+            accepts: [
+                { arg: 'req', type: 'object', http: { source: 'req' } },
+                { arg: 'data', type: 'any', required: true, http: { source: 'body' } },
+            ],
+            returns: { arg: 'userProfile', type: 'object', root: true },
+            http: { verb: 'put' },
+        }
+    );
+
+
+    Customer.deleteProfile = function (req, callback) {
+        const payload = decodeToken(req.headers.authorization);
+        if (!payload) {
+            return callback(new Error("Sem autorização"));
+        }
+        Customer
+            .destroyById(payload.customerId)
+            .catch(error => callback("Não foi possível apagar a conta"))
+    }
+
+    Customer.remoteMethod(
+        'deleteProfile',
+        {
+            accepts: [
+                { arg: 'req', type: 'object', http: { source: 'req' } },
+                { arg: 'data', type: 'any', required: true, http: { source: 'body' } },
+            ],
+            http: { verb: 'delete' },
         }
     );
 };
