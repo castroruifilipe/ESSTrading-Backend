@@ -1,4 +1,4 @@
-CREATE DATABASE customers;
+CREATE DATABASE trading;
 
 DO
 $do$
@@ -10,7 +10,7 @@ BEGIN
 
       CREATE ROLE ess LOGIN PASSWORD '12345';
 
-      GRANT ALL PRIVILEGES ON DATABASE customers TO ess;
+      GRANT ALL PRIVILEGES ON DATABASE trading TO ess;
    END IF;
 
 END

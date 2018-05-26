@@ -7,7 +7,7 @@
     "host": "postgres",
     "port": 5432,
     "url": "",
-    "database": "customers",
+    "database": "trading",
     "password": "12345",
     "name": "postgres",
     "user": "ess",

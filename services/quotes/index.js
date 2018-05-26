@@ -37,19 +37,28 @@ function getQuotes() {
         .then(response =>
             Object.values(response).map(r => ({
                 symbol: r.quote.symbol,
+                companyName: r.quote.companyName,
                 bidPrice: r.quote.iexBidPrice,
                 askPrice: r.quote.iexAskPrice,
+                changePercent: r.quote.changePercent,
+                change: r.quote.change,
             }))
         )
         .then(quotes => Promise.all([quotes, quoteCollection]))
         .then(([quotes, quoteCollection]) => (
             Promise.all(quotes.map(quote => {
-                if (quote.bidPrice * quote.askPrice == 0) {
-                    //return;
+                let newQuote = {
+                    companyName: quote.companyName,
+                    changePercent: quote.changePercent,
+                    change: quote.change,
+                }
+                if (quote.bidPrice && quote.askPrice) {
+                    newQuote['askPrice'] = quote.askPrice;
+                    newQuote['bidPrice'] = quote.bidPrice;
                 }
                 return quoteCollection.update(
                     { symbol: quote.symbol },
-                    { $set: { askPrice: quote.askPrice, bidPrice: quote.bidPrice } },
+                    { $set: { ...newQuote } },
                     { upsert: true },
                     (error, commandResult) => {
                         if (error) {

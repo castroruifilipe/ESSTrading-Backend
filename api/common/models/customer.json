@@ -29,6 +29,10 @@
       "type": "string",
       "required": true
     },
+    "password": {
+      "type": "string",
+      "required": true
+    },
     "nif": {
       "type": "string"
     },
