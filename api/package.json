@@ -24,7 +24,8 @@
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
     "request": "^2.86.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "ieee754": "^1.1.11"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
