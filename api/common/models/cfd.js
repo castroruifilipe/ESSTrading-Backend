@@ -128,7 +128,8 @@ module.exports = function (Cfd) {
                     percent_lucroPerda: percent_lucro_perda,
                     precoFecho: price,
                     valorAbertura: cfd.valorAbertura,
-                    valorInvestido: cfd.montante
+                    valorInvestido: cfd.montante,
+                    customer: payload.customerId
                 };
 
                 Cfd

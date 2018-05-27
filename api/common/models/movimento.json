@@ -52,6 +52,10 @@
       "postgresql": {
         "dataType": "double precision"
       }
+    },
+    "customer": {
+      "type": "number",
+      "required": true
     }
   },
   "validations": [],
