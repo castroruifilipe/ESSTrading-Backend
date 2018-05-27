@@ -253,14 +253,26 @@ module.exports = function (Customer) {
     );
 
 
-    Customer.deleteProfile = function (req, callback) {
+    Customer.deleteProfile = function (req, data, callback) {
         const payload = Customer.decodeToken(req.headers.authorization);
         if (!payload) {
             return callback(new Error("Sem autorização"));
         }
+        if (!data.password) {
+            return callback(new Error("Credenciais inválidas"));
+        }
+
         Customer
-            .destroyById(payload.customerId)
-            .catch(error => callback("Não foi possível apagar a conta"))
+            .findById(payload.customerId)
+            .then(customer => comparePassword(data.password, customer.password))
+            .then(isValid => {
+                if (!isValid) {
+                    throw new Error('Credenciais inválidas');
+                }
+            })
+            .then(() => Customer.destroyById(payload.customerId))
+            .then(() => callback(null))
+            .catch(error => callback(error));
     }
 
     Customer.remoteMethod(
@@ -270,7 +282,7 @@ module.exports = function (Customer) {
                 { arg: 'req', type: 'object', http: { source: 'req' } },
                 { arg: 'data', type: 'any', required: true, http: { source: 'body' } },
             ],
-            http: { verb: 'delete' },
+            http: { verb: 'post' },
         }
     );
 };
