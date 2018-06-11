@@ -6,11 +6,13 @@ const socketIO = require('socket.io')();
 const app = express();
 app.use(express.json());
 
-const mongoUrl = 'mongodb://ess:esstrading2018@ds155730.mlab.com:55730/quotes';
+const mongoUrl = 'mongodb://mongo:27017';
+const dbName = 'quotes';
+const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(mongoUrl, { useNewUrlParser: true });
 const quoteCollection = connectionPromise
-    .then(client => client.db('quotes'))
-    .then(db => db.collection('Quote'));
+    .then(client => client.db(dbName))
+    .then(db => db.collection(collectionName));
 
 
 const adapter = (iexQuote) => {
