@@ -6,7 +6,7 @@ const socketIO = require('socket.io')();
 const app = express();
 app.use(express.json());
 
-const mongoUrl = 'mongodb://mongo:27017';
+const mongoUrl = 'mongodb://localhost:27017';
 const dbName = 'quotes';
 const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(mongoUrl, { useNewUrlParser: true });
