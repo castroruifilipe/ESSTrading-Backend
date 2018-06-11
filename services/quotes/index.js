@@ -106,7 +106,7 @@ app.listen(process.env.PORT_M || 5000, () => console.log('Quotes microservice li
 socketIO.listen(process.env.PORT_S || 8000);
 console.log('Quotes socket listening');
 
-// process.on('exit', () => {
-//     connectionPromise.then(client => client.close());
-//     clearTimeout(_timeout);
-// })
+process.on('exit', () => {
+    connectionPromise.then(client => client.close());
+    clearTimeout(_timeout);
+})
