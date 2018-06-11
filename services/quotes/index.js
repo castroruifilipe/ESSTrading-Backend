@@ -6,8 +6,7 @@ const socketIO = require('socket.io')();
 const app = express();
 app.use(express.json());
 
-
-const mongoUrl = 'mongodb://mongo:27017';
+const mongoUrl = 'mongodb://ess:esstrading2018@ds155730.mlab.com:55730';
 const dbName = 'quotes';
 const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(mongoUrl, { useNewUrlParser: true });
@@ -105,9 +104,9 @@ function getQuotes() {
 
 const _timeout = setInterval(getQuotes, 3000);
 
-app.listen(5000, () => console.log('Quotes microservice listening on port 5000'));
-socketIO.listen(8000);
-console.log('Quotes socket listening on port 8000')
+app.listen(process.env.PORT_M || 5000, () => console.log('Quotes microservice listening'));
+socketIO.listen(process.env.PORT_S || 8000);
+console.log('Quotes socket listening');
 
 process.on('exit', () => {
     connectionPromise.then(client => client.close());
