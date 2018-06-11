@@ -102,8 +102,8 @@ function getQuotes() {
 
 const _timeout = setInterval(getQuotes, 3000);
 
-app.listen(5000, () => console.log('Quotes microservice listening'));
-socketIO.listen(8000);
+app.listen(process.env.PORT || 5000, () => console.log('Quotes microservice listening'));
+socketIO.listen(process.env.PORT || 5000);
 console.log('Quotes socket listening');
 
 process.on('exit', () => {
