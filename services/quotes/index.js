@@ -7,11 +7,10 @@ const app = express();
 app.use(express.json());
 
 const mongoUrl = 'mongodb://ess:esstrading2018@ds155730.mlab.com:55730/quotes';
-const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(mongoUrl, { useNewUrlParser: true });
 const quoteCollection = connectionPromise
-    //.then(client => client.db(dbName))
-    .then(db => db.collection(collectionName));
+    .then(client => client.db('quotes'))
+    .then(db => db.collection('Quote'));
 
 
 const adapter = (iexQuote) => {
