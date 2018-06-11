@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 
 const mongoUrl = 'mongodb://ess:esstrading2018@ds155730.mlab.com:55730/quotes';
-const dbName = 'quotes';
 const collectionName = 'Quote';
 const connectionPromise = mongoClient.connect(mongoUrl, { useNewUrlParser: true });
 const quoteCollection = connectionPromise
@@ -108,7 +107,7 @@ app.listen(process.env.PORT_M || 5000, () => console.log('Quotes microservice li
 socketIO.listen(process.env.PORT_S || 8000);
 console.log('Quotes socket listening');
 
-process.on('exit', () => {
-    connectionPromise.then(client => client.close());
-    clearTimeout(_timeout);
-})
+// process.on('exit', () => {
+//     connectionPromise.then(client => client.close());
+//     clearTimeout(_timeout);
+// })
