@@ -103,7 +103,7 @@ function getQuotes() {
 const _timeout = setInterval(getQuotes, 3000);
 
 app.listen(process.env.PORT || 5000, () => console.log('Quotes microservice listening'));
-socketIO.listen(process.env.PORT || 5000);
+socketIO.listen(process.env.PORT || 8000);
 console.log('Quotes socket listening');
 
 process.on('exit', () => {
