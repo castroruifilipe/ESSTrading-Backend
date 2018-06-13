@@ -3,23 +3,13 @@
     "name": "db",
     "connector": "memory"
   },
-  "mongoQuotes": {
-    "host": "mongo",
-    "port": 27017,
-    "url": "",
-    "database": "quotes",
-    "password": "12345",
-    "name": "mongoQuotes",
-    "user": "ess",
-    "connector": "mongodb"
-  },
-  "postgresCustomers": {
+  "postgres": {
     "host": "postgres",
     "port": 5432,
     "url": "",
-    "database": "customers",
+    "database": "trading",
     "password": "12345",
-    "name": "postgresCustomers",
+    "name": "postgres",
     "user": "ess",
     "connector": "postgresql"
   }

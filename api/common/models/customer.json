@@ -16,11 +16,11 @@
     "last_name": {
       "type": "string"
     },
-    "phone": {
+    "contacto": {
       "type": "string"
     },
-    "birthdate": {
-      "type": "date"
+    "data_nascimento": {
+      "type": "string"
     },
     "sexo": {
       "type": "string"
@@ -29,7 +29,23 @@
       "type": "string",
       "required": true
     },
+    "password": {
+      "type": "string",
+      "required": true
+    },
     "nif": {
+      "type": "string"
+    },
+    "saldo": {
+      "type": "number",
+      "postgresql": {
+        "dataType": "double precision"
+      }
+    },
+    "image": {
+      "type": "string"
+    },
+    "imageCroped": {
       "type": "string"
     }
   },

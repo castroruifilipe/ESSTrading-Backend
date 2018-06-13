@@ -20,6 +20,8 @@ services:
     postgres:
         container_name: postgres
         build: ./db/postgres
+        volumes:
+            - ./db/postgres/data:/var/lib/postgresql/data
         ports:
             - '5433:5432'
         environment:
@@ -37,10 +39,9 @@ services:
             - '4000:3000'
         depends_on:
             - postgres
-            - mongo
         links:
             - postgres
-            - mongo
+            - quotes
     
     gateway:
         container_name: gateway
@@ -63,6 +64,7 @@ services:
             - MONGO_INITDB_ROOT_PASSWORD=12345
         ports:
             - '5000:5000'
+            - '8000:8000'
         depends_on:
             - mongo
         links:

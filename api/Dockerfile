@@ -1,16 +1,15 @@
 FROM node:latest
 
-#RUN npm i npm@latest -g
+RUN npm i npm@latest -g
 RUN npm i nodemon -g
-#RUN npm install grpc
+
+ADD package.json /install/
+WORKDIR /install/
+RUN npm install --verbose
+ENV NODE_PATH=/install/node_modules
 
 RUN mkdir /usr/src/api
-WORKDIR /usr/src/api
-
-#ENV PATH /usr/src/api/node_modules/.bin:$PATH
-
-ADD package.json /usr/src/api/package.json
-RUN npm install
+WORKDIR /usr/src/api/
 
 ADD nodemon.json /usr/src/api/nodemon.json
 

@@ -1,14 +1,15 @@
 FROM node:latest
 
-#RUN npm i npm@latest -g
+RUN npm i npm@latest -g
 RUN npm i nodemon -g
-#RUN npm install grpc
+
+ADD package.json /install/
+WORKDIR /install/
+RUN npm install --verbose
+ENV NODE_PATH=/install/node_modules
 
 RUN mkdir /usr/src/gateway
 WORKDIR /usr/src/gateway
-
-ADD package.json /usr/src/gateway/package.json
-RUN npm install
 
 ADD nodemon.json /usr/src/gateway/nodemon.json
 

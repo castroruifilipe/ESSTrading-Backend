@@ -11,18 +11,21 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
-    "firebase": "^5.0.2",
-    "firebase-admin": "^5.12.1",
     "helmet": "^3.10.0",
+    "jsonwebtoken": "^8.2.1",
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.0.0",
     "loopback-connector-mongodb": "^1.18.1",
     "loopback-connector-postgresql": "^2.9.0",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^2.0.0"
+    "strong-error-handler": "^2.0.0",
+    "request": "^2.86.0",
+    "request-promise-native": "^1.0.5",
+    "ieee754": "^1.1.11"
   },
   "devDependencies": {
     "eslint": "^3.17.1",

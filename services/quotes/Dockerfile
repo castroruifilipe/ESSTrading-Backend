@@ -1,19 +1,19 @@
 FROM node:latest
 
-#RUN npm i npm@latest -g
+RUN npm i npm@latest -g
 RUN npm i nodemon -g
-#RUN npm install grpc
+
+ADD package.json /install/
+WORKDIR /install/
+RUN npm install --verbose
+ENV NODE_PATH=/install/node_modules
 
 RUN mkdir -p /usr/src/services/quotes
 WORKDIR /usr/src/services/quotes
 
-ADD package.json /usr/src/services/quotes/package.json
-RUN npm install
-
 ADD nodemon.json /usr/src/services/quotes/nodemon.json
 
 EXPOSE 5000
-
-EXPOSE 5001
+EXPOSE 8000
 
 CMD ["npm", "run", "start"]
