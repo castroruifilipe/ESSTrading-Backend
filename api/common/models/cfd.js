@@ -27,7 +27,7 @@ module.exports = function (Cfd) {
         }
 
         request({
-            url: `http://quotes:5000/quotes-ms/quote/${data.ativo}`,
+            url: `http://localhost:5000/quotes-ms/quote/${data.ativo}`,
             json: true
         })
             .then(quote => {
@@ -102,7 +102,7 @@ module.exports = function (Cfd) {
             .then(cfd =>
                 Promise.all([
                     request({
-                        url: `http://quotes:5000/quotes-ms/quote/${cfd.ativo}`,
+                        url: `http://localhost:5000/quotes-ms/quote/${cfd.ativo}`,
                         json: true
                     }),
                     cfd
