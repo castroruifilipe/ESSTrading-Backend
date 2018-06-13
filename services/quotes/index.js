@@ -72,7 +72,7 @@ function getQuotes() {
         url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${symbols}&types=quote`,
         json: true,
     })
-        .then(response => Object.values(response).map(adapter))
+        .then(response => Object.values(response).map(obj => adapter(obj.quote)))
         .then(quotes => Promise.all([quotes, quoteCollection]))
         .then(([quotes, quoteCollection]) => (
             Promise.all(quotes.map(quote => {
